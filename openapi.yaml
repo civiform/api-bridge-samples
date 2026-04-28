@@ -1,0 +1,265 @@
+openapi: "3.0.3"
+info:
+  title: CiviForm Integration Service
+  description: Documents the requirements to integrate with CiviForm
+  termsOfService: https://docs.civiform.us
+  contact:
+    email: someone@civiform.us
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: "0.9.9"
+externalDocs:
+  description: Find out more
+  url: https://docs.civiform.us
+servers:
+  - url: "https://localhost:9876"
+paths:
+  /health-check:
+    get:
+      summary: Health check endpoint
+      description: Checks the health status of the service
+      operationId: getHealthcheck
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthcheckResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "429":
+          $ref: "#/components/responses/TooManyRequests"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+  /discovery:
+    get:
+      summary: Discovery endpoint
+      description: Retrieves information about available service endpoints and their parameters.
+      operationId: getDiscovery
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DiscoveryResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "429":
+          $ref: "#/components/responses/TooManyRequests"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+  /bridge/{slug}:
+    post:
+      summary: Bridge service endpoint
+      description: Performs operations with multiple possible response types, including validation failure, error, and success with scalar or array payloads.
+      operationId: postBridge
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Path to specific bridge endpoint
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BridgeRequest"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BridgeResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
+        "429":
+          $ref: "#/components/responses/TooManyRequests"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+components:
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/ProblemDetail"
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/ProblemDetail"
+    NotFound:
+      description: Not found
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/ProblemDetail"
+    UnprocessableEntity:
+      description: Unprocessable Entity (Validation Errors)
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/ValidationProblemDetail"
+    TooManyRequests:
+      description: Too Many Requests
+      headers:
+        Retry-After:
+          description: Time to wait before retrying, expressed either as a non-negative integer number of seconds or as an HTTP-date (RFC 1123). See RFC 7231.
+          schema:
+            type: string
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/ProblemDetail"
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/ProblemDetail"
+
+  schemas:
+    CompatibilityLevel:
+      type: string
+      description: Compatibility level number for an endpoint
+      enum:
+        - v1
+
+    Endpoint:
+      type: object
+      description: Endpoint definition for an integration
+      properties:
+        compatibility_level:
+          $ref: "#/components/schemas/CompatibilityLevel"
+        description:
+          type: string
+          description: Description of what the endpoint is used for
+        uri:
+          type: string
+          description: Uri to bridge endpoint
+        request_schema:
+          type: object
+          description: JSON Schema (draft 2020-12) document describing the request payload.
+        response_schema:
+          type: object
+          description: JSON Schema (draft 2020-12) document describing the response payload.
+      required:
+        - compatibility_level
+        - description
+        - request_schema
+        - response_schema
+
+    ValidationError:
+      type: object
+      description: Validation error message details
+      properties:
+        name:
+          type: string
+        message:
+          type: string
+      required:
+        - name
+        - message
+
+    # RFC 9457 Problem Details Schema
+    ProblemDetail:
+      title: "An RFC 9457 problem object"
+      type: object
+      properties:
+        type:
+          type: string
+          format: uri-reference
+          description: "A URI reference that identifies the problem type."
+          default: "about:blank"
+        title:
+          type: string
+          description: "A short, human-readable summary of the problem type."
+        status:
+          type: integer
+          description: "The HTTP status code generated by the origin server for this occurrence of the problem."
+          minimum: 100
+          maximum: 599
+        detail:
+          type: string
+          description: "A human-readable explanation specific to this occurrence of the problem."
+        instance:
+          type: string
+          format: uri-reference
+          description: "A URI reference that identifies the specific occurrence of the problem."
+      required:
+        - type
+
+    # Extended Problem Detail for validation errors
+    ValidationProblemDetail:
+      allOf:
+        - $ref: "#/components/schemas/ProblemDetail"
+        - type: object
+          properties:
+            validation_errors:
+              type: array
+              items:
+                $ref: "#/components/schemas/ValidationError"
+
+    HealthcheckResponse:
+      type: object
+      description: Response object for the health-check endpoint
+      properties:
+        timestamp:
+          type: integer
+          format: int64
+          description: Unix timestamp of response
+      required:
+        - timestamp
+
+    DiscoveryResponse:
+      type: object
+      description: Response object for the discovery endpoint
+      properties:
+        endpoints:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Endpoint"
+      required:
+        - endpoints
+
+    BridgeRequest:
+      type: object
+      description: Request object for the bridge endpoint
+      properties:
+        payload:
+          type: object
+          additionalProperties: true
+      required:
+        - payload
+
+    BridgeResponse:
+      type: object
+      description: Response object for the bridge endpoint
+      properties:
+        compatibility_level:
+          $ref: "#/components/schemas/CompatibilityLevel"
+        payload:
+          type: object
+          additionalProperties: true
+      required:
+        - compatibility_level
+        - payload
