@@ -1,0 +1,19 @@
+{
+  "name": "bridge-node",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Node.js bridge service exposing utility-customer lookup endpoints.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "bash bin/test.sh"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
+    "express": "5.2.1"
+  }
+}
