@@ -1,0 +1,566 @@
+{
+  "program": {
+    "id": 2610,
+    "adminName": "utility-discount-program",
+    "adminDescription": "",
+    "externalLink": "",
+    "displayMode": "PUBLIC",
+    "loginOnly": false,
+    "notificationPreferences": [],
+    "localizedName": {
+      "translations": {
+        "en_US": "Utility Discount Program"
+      },
+      "isRequired": true
+    },
+    "localizedDescription": {
+      "translations": {
+        "en_US": ""
+      },
+      "isRequired": true
+    },
+    "localizedShortDescription": {
+      "translations": {
+        "en_US": "Utility Discount Program"
+      },
+      "isRequired": true
+    },
+    "localizedConfirmationMessage": {
+      "translations": {
+        "en_US": ""
+      },
+      "isRequired": true
+    },
+    "blockDefinitions": [
+      {
+        "id": 1,
+        "name": "Screen 1",
+        "description": "Screen 1 description",
+        "localizedName": {
+          "translations": {
+            "en_US": "Screen 1"
+          },
+          "isRequired": true
+        },
+        "localizedDescription": {
+          "translations": {
+            "en_US": "Screen 1 description"
+          },
+          "isRequired": true
+        },
+        "localizedEligibilityMessage": null,
+        "repeaterId": null,
+        "hidePredicate": null,
+        "optionalPredicate": null,
+        "questionDefinitions": [
+          {
+            "id": 3186,
+            "optional": false,
+            "addressCorrectionEnabled": false
+          },
+          {
+            "id": 3187,
+            "optional": false,
+            "addressCorrectionEnabled": false
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Screen 2",
+        "description": "Screen 2 description",
+        "localizedName": {
+          "translations": {
+            "en_US": "Screen 2"
+          },
+          "isRequired": true
+        },
+        "localizedDescription": {
+          "translations": {
+            "en_US": "Screen 2 description"
+          },
+          "isRequired": true
+        },
+        "localizedEligibilityMessage": null,
+        "repeaterId": null,
+        "hidePredicate": null,
+        "optionalPredicate": null,
+        "questionDefinitions": [
+          {
+            "id": 3185,
+            "optional": false,
+            "addressCorrectionEnabled": false
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Screen 3",
+        "description": "Screen 3 description",
+        "localizedName": {
+          "translations": {
+            "en_US": "Screen 3"
+          },
+          "isRequired": true
+        },
+        "localizedDescription": {
+          "translations": {
+            "en_US": "Screen 3 description"
+          },
+          "isRequired": true
+        },
+        "localizedEligibilityMessage": {
+          "translations": {
+            "en_US": ""
+          },
+          "isRequired": true
+        },
+        "repeaterId": null,
+        "hidePredicate": null,
+        "eligibilityDefinition": {
+          "predicate": {
+            "rootNode": {
+              "node": {
+                "type": "leaf",
+                "questionId": 3198,
+                "scalar": "SELECTION",
+                "operator": "IN",
+                "value": {
+                  "value": "[\"1\"]",
+                  "type": "LIST_OF_STRINGS"
+                }
+              }
+            },
+            "action": "ELIGIBLE_BLOCK"
+          }
+        },
+        "optionalPredicate": null,
+        "questionDefinitions": [
+          {
+            "id": 3198,
+            "optional": false,
+            "addressCorrectionEnabled": false
+          },
+          {
+            "id": 3193,
+            "optional": false,
+            "addressCorrectionEnabled": false
+          }
+        ]
+      }
+    ],
+    "programType": "DEFAULT",
+    "eligibilityIsGating": true,
+    "acls": {
+      "tiProgramViewAcls": []
+    },
+    "localizedSummaryImageDescription": null,
+    "categories": [],
+    "applicationSteps": [
+      {
+        "title": {
+          "translations": {
+            "en_US": "Utility Discount Program Step 1 Title"
+          },
+          "isRequired": true
+        },
+        "description": {
+          "translations": {
+            "en_US": "Utility Discount Program Step 1 Description"
+          },
+          "isRequired": true
+        }
+      }
+    ],
+    "bridgeDefinitions": {}
+  },
+  "questions": [
+    {
+      "type": "name",
+      "config": {
+        "name": "applicant-name",
+        "description": "",
+        "questionText": {
+          "translations": {
+            "en_US": "Applicant Name"
+          },
+          "isRequired": true
+        },
+        "questionHelpText": {
+          "translations": {},
+          "isRequired": false
+        },
+        "validationPredicates": {
+          "type": "name"
+        },
+        "id": 3186,
+        "displayMode": "VISIBLE",
+        "universal": false,
+        "primaryApplicantInfoTags": []
+      }
+    },
+    {
+      "type": "text",
+      "config": {
+        "name": "applicant-utility-number",
+        "description": "",
+        "questionText": {
+          "translations": {
+            "en_US": "Applicant Utility Number"
+          },
+          "isRequired": true
+        },
+        "questionHelpText": {
+          "translations": {},
+          "isRequired": false
+        },
+        "validationPredicates": {
+          "type": "text",
+          "minLength": null,
+          "maxLength": null
+        },
+        "id": 3187,
+        "displayMode": "VISIBLE",
+        "universal": false,
+        "primaryApplicantInfoTags": []
+      }
+    },
+    {
+      "type": "address",
+      "config": {
+        "name": "applicant-address",
+        "description": "",
+        "questionText": {
+          "translations": {
+            "en_US": "Applicant Address"
+          },
+          "isRequired": true
+        },
+        "questionHelpText": {
+          "translations": {},
+          "isRequired": false
+        },
+        "validationPredicates": {
+          "type": "address",
+          "disallowPoBox": false
+        },
+        "id": 3185,
+        "displayMode": "VISIBLE",
+        "universal": false,
+        "primaryApplicantInfoTags": []
+      }
+    },
+    {
+      "type": "multioption",
+      "config": {
+        "name": "applicant-utility-account-exists",
+        "description": "",
+        "questionText": {
+          "translations": {
+            "en_US": "Applicant Utility Account Exists"
+          },
+          "isRequired": true
+        },
+        "questionHelpText": {
+          "translations": {},
+          "isRequired": false
+        },
+        "validationPredicates": {
+          "type": "multioption",
+          "minChoicesRequired": null,
+          "maxChoicesAllowed": null
+        },
+        "id": 3198,
+        "displayMode": "HIDDEN",
+        "universal": false,
+        "primaryApplicantInfoTags": []
+      },
+      "questionOptions": [
+        {
+          "id": 1,
+          "adminName": "yes",
+          "localizedOptionText": {
+            "translations": {
+              "en_US": "Yes"
+            },
+            "isRequired": true
+          },
+          "displayOrder": 0,
+          "displayInAnswerOptions": true
+        },
+        {
+          "id": 0,
+          "adminName": "no",
+          "localizedOptionText": {
+            "translations": {
+              "en_US": "No"
+            },
+            "isRequired": true
+          },
+          "displayOrder": 1,
+          "displayInAnswerOptions": true
+        },
+        {
+          "id": 2,
+          "adminName": "not-sure",
+          "localizedOptionText": {
+            "translations": {
+              "en_US": "Not sure"
+            },
+            "isRequired": true
+          },
+          "displayOrder": 2,
+          "displayInAnswerOptions": false
+        },
+        {
+          "id": 3,
+          "adminName": "maybe",
+          "localizedOptionText": {
+            "translations": {
+              "en_US": "Maybe"
+            },
+            "isRequired": true
+          },
+          "displayOrder": 3,
+          "displayInAnswerOptions": false
+        }
+      ],
+      "multiOptionQuestionType": "YES_NO",
+      "optionAdminNames": ["yes", "no", "not-sure", "maybe"],
+      "displayableOptionAdminNames": ["yes", "no"],
+      "displayableOptions": [
+        {
+          "id": 1,
+          "adminName": "yes",
+          "localizedOptionText": {
+            "translations": {
+              "en_US": "Yes"
+            },
+            "isRequired": true
+          },
+          "displayOrder": 0,
+          "displayInAnswerOptions": true
+        },
+        {
+          "id": 0,
+          "adminName": "no",
+          "localizedOptionText": {
+            "translations": {
+              "en_US": "No"
+            },
+            "isRequired": true
+          },
+          "displayOrder": 1,
+          "displayInAnswerOptions": true
+        }
+      ],
+      "options": [
+        {
+          "id": 1,
+          "adminName": "yes",
+          "localizedOptionText": {
+            "translations": {
+              "en_US": "Yes"
+            },
+            "isRequired": true
+          },
+          "displayOrder": 0,
+          "displayInAnswerOptions": true
+        },
+        {
+          "id": 0,
+          "adminName": "no",
+          "localizedOptionText": {
+            "translations": {
+              "en_US": "No"
+            },
+            "isRequired": true
+          },
+          "displayOrder": 1,
+          "displayInAnswerOptions": true
+        },
+        {
+          "id": 2,
+          "adminName": "not-sure",
+          "localizedOptionText": {
+            "translations": {
+              "en_US": "Not sure"
+            },
+            "isRequired": true
+          },
+          "displayOrder": 2,
+          "displayInAnswerOptions": false
+        },
+        {
+          "id": 3,
+          "adminName": "maybe",
+          "localizedOptionText": {
+            "translations": {
+              "en_US": "Maybe"
+            },
+            "isRequired": true
+          },
+          "displayOrder": 3,
+          "displayInAnswerOptions": false
+        }
+      ]
+    },
+    {
+      "type": "multioption",
+      "config": {
+        "name": "applicant-i-swear",
+        "description": "",
+        "questionText": {
+          "translations": {
+            "en_US": "I solemnly swear that I am up to no good"
+          },
+          "isRequired": true
+        },
+        "questionHelpText": {
+          "translations": {},
+          "isRequired": false
+        },
+        "validationPredicates": {
+          "type": "multioption",
+          "minChoicesRequired": null,
+          "maxChoicesAllowed": null
+        },
+        "id": 3193,
+        "displayMode": "VISIBLE",
+        "universal": false,
+        "primaryApplicantInfoTags": []
+      },
+      "questionOptions": [
+        {
+          "id": 1,
+          "adminName": "yes",
+          "localizedOptionText": {
+            "translations": {
+              "en_US": "Yes"
+            },
+            "isRequired": true
+          },
+          "displayOrder": 0,
+          "displayInAnswerOptions": true
+        },
+        {
+          "id": 0,
+          "adminName": "no",
+          "localizedOptionText": {
+            "translations": {
+              "en_US": "No"
+            },
+            "isRequired": true
+          },
+          "displayOrder": 1,
+          "displayInAnswerOptions": true
+        },
+        {
+          "id": 2,
+          "adminName": "not-sure",
+          "localizedOptionText": {
+            "translations": {
+              "en_US": "Not sure"
+            },
+            "isRequired": true
+          },
+          "displayOrder": 2,
+          "displayInAnswerOptions": false
+        },
+        {
+          "id": 3,
+          "adminName": "maybe",
+          "localizedOptionText": {
+            "translations": {
+              "en_US": "Maybe"
+            },
+            "isRequired": true
+          },
+          "displayOrder": 3,
+          "displayInAnswerOptions": false
+        }
+      ],
+      "multiOptionQuestionType": "YES_NO",
+      "optionAdminNames": ["yes", "no", "not-sure", "maybe"],
+      "displayableOptionAdminNames": ["yes", "no"],
+      "displayableOptions": [
+        {
+          "id": 1,
+          "adminName": "yes",
+          "localizedOptionText": {
+            "translations": {
+              "en_US": "Yes"
+            },
+            "isRequired": true
+          },
+          "displayOrder": 0,
+          "displayInAnswerOptions": true
+        },
+        {
+          "id": 0,
+          "adminName": "no",
+          "localizedOptionText": {
+            "translations": {
+              "en_US": "No"
+            },
+            "isRequired": true
+          },
+          "displayOrder": 1,
+          "displayInAnswerOptions": true
+        }
+      ],
+      "options": [
+        {
+          "id": 1,
+          "adminName": "yes",
+          "localizedOptionText": {
+            "translations": {
+              "en_US": "Yes"
+            },
+            "isRequired": true
+          },
+          "displayOrder": 0,
+          "displayInAnswerOptions": true
+        },
+        {
+          "id": 0,
+          "adminName": "no",
+          "localizedOptionText": {
+            "translations": {
+              "en_US": "No"
+            },
+            "isRequired": true
+          },
+          "displayOrder": 1,
+          "displayInAnswerOptions": true
+        },
+        {
+          "id": 2,
+          "adminName": "not-sure",
+          "localizedOptionText": {
+            "translations": {
+              "en_US": "Not sure"
+            },
+            "isRequired": true
+          },
+          "displayOrder": 2,
+          "displayInAnswerOptions": false
+        },
+        {
+          "id": 3,
+          "adminName": "maybe",
+          "localizedOptionText": {
+            "translations": {
+              "en_US": "Maybe"
+            },
+            "isRequired": true
+          },
+          "displayOrder": 3,
+          "displayInAnswerOptions": false
+        }
+      ]
+    }
+  ],
+  "duplicateQuestionHandlingOptions": {}
+}
+
